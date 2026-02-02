@@ -39,3 +39,9 @@ pip install gymnasium==0.29.1
 pip install numpy scipy matplotlib
 pip install tensorboard
 ```
+
+**Stuff done:**
+requirements specified and installed all dependencies
+setup mujoco and conda environment 
+ran a basic simple mujoco simulation 
+made the files scripts/{test_installation.py, basic_mujoco.py}

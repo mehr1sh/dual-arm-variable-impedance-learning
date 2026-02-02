@@ -1,0 +1,39 @@
+# requirements.txt for DA-VIL (Fixed for NumPy 2.0 conflicts)
+# Core: Pin NumPy<2 for CVXPY 1.4.2 + SB3 2.2.1 compatibility [web:76][web:91]
+
+numpy>=1.24.0,<2.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# MuJoCo + Gym (exact for stability)
+mujoco==3.1.1
+gymnasium==0.29.1
+
+# PyTorch (your cu118 works; loose >= ok)
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# RL (SB3 2.2.1 needs NumPy<2)
+stable-baselines3[extra]==2.2.1
+
+# Optimization (needs NumPy<2)
+cvxpy==1.4.2
+
+# Logging
+tensorboard>=2.13.0
+wandb>=0.15.0
+mediapy>=1.1.0
+
+# Utilities
+pyyaml>=6.0
+tqdm>=4.65.0
+pandas>=2.0.0
+
+# Development
+pytest>=7.3.0
+black>=23.3.0
+flake8>=6.0.0
+ipykernel>=6.23.0
+jupyter>=1.0.0
