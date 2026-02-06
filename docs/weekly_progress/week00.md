@@ -48,3 +48,9 @@ requirements specified and installed all dependencies
 setup mujoco and conda environment 
 ran a basic simple mujoco simulation 
 **made the files scripts/{test_installation.py, basic_mujoco.py}**
+
+**Resources**
+1. [MuJoCo Official Documentation](https://mujoco.readthedocs.io/en/stable/)[web:83][web:89]
+2. [PyTorch Tutorials](https://pytorch.org/tutorials/) [web:90]
+3. [CVXPY Documentation](https://www.cvxpy.org/) [web:91][web:95]
+4. [Stable-Baselines3 Documentation](https://stable-baselines3.readthedocs.io/en/master/) [web:88]

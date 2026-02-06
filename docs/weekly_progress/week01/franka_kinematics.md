@@ -4,4 +4,5 @@ It refers to the forward and inverse kinematic models of the Franka Emika Panda,
 Uses DH parameters for joint transformations
 
 1. [The Franka Emika Robot: A Standard Platform in Robotics Research [Survey]](https://ieeexplore.ieee.org/document/10693652)
+2. [Franka World](https://franka.world/resources)
 
