@@ -38,10 +38,13 @@ pip install cvxpy==1.4.2
 pip install gymnasium==0.29.1
 pip install numpy scipy matplotlib
 pip install tensorboard
+
+#run basic simulation
+python scripts/basic_mujoco.py
 ```
 
 **Stuff done:**
 requirements specified and installed all dependencies
 setup mujoco and conda environment 
 ran a basic simple mujoco simulation 
-made the files scripts/{test_installation.py, basic_mujoco.py}
+**made the files scripts/{test_installation.py, basic_mujoco.py}**
