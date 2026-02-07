@@ -4,7 +4,6 @@ Given an object's location in end-effector frame(x), find its location(X) in the
 1. Define and draw the fixed and end-effeector frames.
 2. Draw a frame at each joint with its x axis parallel to the next link
 3. Mark out the rotation angles (ANTICLOCKWISE)
-4.  
 
 
 
