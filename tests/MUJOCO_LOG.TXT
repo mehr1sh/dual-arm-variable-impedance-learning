@@ -1,0 +1,15 @@
+Thu Feb 12 00:39:24 2026
+WARNING: mju_openResource: unknown file 'mujoco_menagerie/franka_emika_panda/panda.xml'
+
+Thu Feb 12 00:39:45 2026
+WARNING: mju_openResource: unknown file 'mujoco_menagerie/franka_emika_panda/panda.xml'
+
+Thu Feb 12 00:40:26 2026
+WARNING: mju_openResource: unknown file 'mujoco_menagerie/franka_emika_panda/panda.xml'
+
+Thu Feb 12 00:41:16 2026
+WARNING: mju_openResource: unknown file 'docs/mujoco_menagerie/franka_emika_panda/panda.xml'
+
+Thu Feb 12 00:42:35 2026
+WARNING: mju_openResource: unknown file 'mujoco_menagerie/franka_emika_panda/panda.xml'
+
