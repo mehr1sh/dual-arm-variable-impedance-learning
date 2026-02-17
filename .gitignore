@@ -43,10 +43,6 @@ checkpoints/*.pkl
 *.pth
 *.pt
 
-# Logs
-logs/
-*.log
-wandb/
 
 # Data
 data/*.csv
