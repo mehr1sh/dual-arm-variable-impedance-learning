@@ -1,0 +1,28 @@
+1D spring‑damper on a single joint:
+this joint should sit at this angle, and if I pull it away, it springs back and settles smoothly.
+
+## Single-Joint PD Controller Summary
+
+**Implemented:**
+
+1. **1D spring-damper PD law:**
+   $$
+   \tau_{PD} = K_p (q_{target} - q) - K_d \dot{q}
+   $$
+
+2. **Gravity/Coriolis compensation** via `data.qfrc_bias` from:
+   $$
+   M(q)\ddot{q} + C(q,\dot{q}) + G(q) = \tau
+   $$
+
+3. **Single-joint controller** in simulation loop:
+   ```python
+   data.ctrl[act_id] = data.qfrc_bias[dof_id] + tau_PD
+
+
+I implemented PD controller for joint 4 initially which was not what was expected. 
+It came back to its original position when pulled upon.
+
+The PD controler is supposed to implemented for the end effector and the end effector should reach some sort of a goal position from its initial position and the pd controller should be applied between the initial end effector configuration and the goal end effector configuration. 
+
+after that we have to do this with both pd controller and classical impedance and then we also have to do this with multiple setpoints for trajectory generation that the arm will follow i.e. end-effector Cartesian control with trajectory tracking.

@@ -31,7 +31,7 @@ class SimpleTrajectoryGenerator:
         Returns:
             positions: (N, 3) array
             velocities: (N, 3) array
-            accelerations: (N, 3) array
+            accelerations: (N, 3) arraypython3 -m mujoco.viewer --mjcf=/full/path/to/model/file.xml
         """
         positions = np.zeros((self.num_steps, 3))
         velocities = np.zeros((self.num_steps, 3))
@@ -167,7 +167,7 @@ class SimpleTrajectoryGenerator:
         import os
         os.makedirs('logs', exist_ok=True)
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Saved: {save_path}")
+        print(f"Saved: {save_path}")
         plt.show()
         
         return pos_traj, quat_traj
@@ -191,7 +191,7 @@ def demo_pick_place():
     # Generate and visualize
     generator.visualize_trajectory(start_pose, end_pose)
     
-    print("\n✅ Week 1 Trajectory Visualization Complete!")
+    print("\nWeek 1 Trajectory Visualization Complete!")
     print("Features:")
     print("- Smooth quintic polynomial (zero velocity/acceleration boundaries)")
     print("- SLERP orientation interpolation")

@@ -4,9 +4,12 @@ import mujoco
 import mujoco.viewer
 from scipy.spatial.transform import Rotation
 
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from franka_kinematics import FrankaKinematics
 
-PANDA_XML_PATH = "../../docs/mujoco_menagerie/franka_emika_panda/panda.xml"
+PANDA_XML_PATH = "../../../docs/mujoco_menagerie/franka_emika_panda/panda.xml"
 
 def main():
     model = mujoco.MjModel.from_xml_path(PANDA_XML_PATH)

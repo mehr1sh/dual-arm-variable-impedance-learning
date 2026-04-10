@@ -1,0 +1,30 @@
+Sat Mar  7 14:33:29 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 3. The simulation is unstable. Time = 1306.9500.
+
+Sat Mar  7 14:53:26 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 11. The simulation is unstable. Time = 644.2700.
+
+Sat Mar  7 14:58:00 2026
+WARNING: mju_openResource: unknown file 'assets/models/dual_arm.xml'
+
+Sat Mar  7 14:59:06 2026
+WARNING: mju_openResource: unknown file '/home/mehi-rizz/IIITH/2-2/RRC/dual-arm-variable-impedance-learning/assets/models/dual_arm.xml'
+
+Sat Mar  7 14:59:26 2026
+WARNING: mju_openResource: unknown file '/home/mehi-rizz/IIITH/2-2/RRC/dual-arm-variable-impedance-learning/assets/models/dual_arm.xml'
+
+Sat Mar  7 15:01:07 2026
+WARNING: mju_openResource: unknown file '/home/mehi-rizz/IIITH/2-2/RRC/dual-arm-variable-impedance-learning/assets/models/dual_arm.xml'
+
+Sat Mar  7 15:01:39 2026
+WARNING: mju_openResource: unknown file '/home/mehi-rizz/IIITH/2-2/RRC/dual-arm-variable-impedance-learning/assets/models/dual_arm.xml'
+
+Sat Mar  7 15:14:47 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 12. The simulation is unstable. Time = 3.3200.
+
+Sat Mar  7 16:12:51 2026
+WARNING: mju_openResource: unknown file 'assets/models/dual_franka_7dof.xml'
+
+Sat Mar  7 18:08:54 2026
+WARNING: mju_openResource: unknown file '../../docs/mujoco_menagerie/franka_emika_panda/panda.xml'
+

@@ -1,0 +1,6 @@
+Sat Mar  7 14:47:08 2026
+WARNING: mju_openResource: unknown file 'dual_franka.xml'
+
+Sat Mar  7 14:48:06 2026
+WARNING: mju_openResource: unknown file 'dual_franka.xml'
+

@@ -1,22 +1,4 @@
-"""
-run_trajectory_plot.py  [MUJOCO GEOM API FIXED]
-================================================
 
-FIXES vs previous version:
-  1. geom.label  — is a plain Python str in MuJoCo ≥3.x, not a byte buffer.
-                   Fixed: assign empty string  geom.label = ""
-  2. geom.mat    — does not exist on mjvGeom. Orientation is set via
-                   geom.mat[:] only if the field is a numpy array.
-                   Fixed: use mujoco.mjv_initGeom() which handles all
-                   field initialisation safely, then set only what we need.
-  3. Plots saved to a dedicated  plots/  subfolder.
-
-WHAT YOU SEE IN THE MUJOCO WINDOW:
-  Yellow spheres  = waypoint corners (fixed in space)
-  Blue cylinders  = planned square edges
-  Red sphere      = moving reference point the arm is chasing
-  Green dots      = fading EE trail (recent path of actual EE)
-"""
 
 import os
 import numpy as np
@@ -27,11 +9,14 @@ import matplotlib.gridspec as gridspec
 from collections import deque
 from scipy.spatial.transform import Rotation
 
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from franka_kinematics import FrankaKinematics
 from quintic_trajectory_generator import QuinticTrajectory
 
 # ── Config ────────────────────────────────────────────────────
-PANDA_XML_PATH = os.path.join("..", "..", "docs", "mujoco_menagerie",
+PANDA_XML_PATH = os.path.join("..", "..", "..", "docs", "mujoco_menagerie",
                               "franka_emika_panda", "panda.xml")
 PLOT_EVERY   = 50
 SETTLE_TIME  = 2.0
@@ -176,38 +161,42 @@ def draw_cylinder(scene, p1, p2, radius, rgba, idx):
     return idx + 1
 
 
-def update_mujoco_visuals(scene, wp, x_des, x_cur, trail):
+def update_mujoco_visuals(scene, wp, x_des, x_cur, trail, path_dots):
     """
-    Rebuild all custom geometry in the MuJoCo scene every frame.
+    Draws four layers of custom geometry into the MuJoCo scene.
+    Call BEFORE viewer.sync() so the viewer reads the updated geoms.
 
-    Called BEFORE viewer.sync() so the viewer picks up the new geoms.
-    We zero ngeom first so stale geoms from the previous frame
-    don't bleed through if we write fewer geoms this frame.
+      1. Yellow spheres — waypoint corners
+      2. Blue spheres   — dots along the planned quintic path (the actual curve)
+      3. Red sphere     — current x_des (moves along path, arm chases it)
+      4. Green dots     — fading EE trail
     """
     scene.ngeom = 0
     n = 0
 
-    # 1. Waypoint corners — yellow spheres
+    # 1. Waypoint corners — large yellow spheres
     for w in wp:
         n = draw_sphere(scene, w,
                         radius=0.012,
                         rgba=[1.0, 0.85, 0.0, 0.9],
                         idx=n)
 
-    # 2. Planned square edges — blue cylinders
-    for i in range(len(wp) - 1):
-        n = draw_cylinder(scene, wp[i], wp[i + 1],
-                          radius=0.003,
-                          rgba=[0.2, 0.45, 1.0, 0.6],
-                          idx=n)
+    # 2. Planned quintic path — small blue spheres sampled along the curve
+    #    Shows the actual smooth curved path, not straight corner-to-corner lines.
+    #    path_dots is precomputed once before the simulation loop.
+    for pos in path_dots:
+        n = draw_sphere(scene, pos,
+                        radius=0.004,
+                        rgba=[0.2, 0.5, 1.0, 0.8],
+                        idx=n)
 
-    # 3. Current reference point — bright red sphere (moves along path)
+    # 3. Moving reference — bright red sphere at current x_des
     n = draw_sphere(scene, x_des,
                     radius=0.016,
                     rgba=[1.0, 0.1, 0.1, 1.0],
                     idx=n)
 
-    # 4. EE trail — green spheres fading from bright (recent) to dim (old)
+    # 4. EE trail — green spheres fading old→new
     trail_list = list(trail)
     num = len(trail_list)
     for i, pos in enumerate(trail_list):
@@ -353,7 +342,7 @@ def main():
     print()
     print("  MuJoCo window:")
     print("    Yellow spheres = waypoint corners")
-    print("    Blue lines     = planned path")
+    print("    Blue spheres   = planned quintic path (80 sampled dots)")
     print("    Red sphere     = moving reference (arm chases this)")
     print("    Green dots     = actual EE trail")
     print()
@@ -367,6 +356,12 @@ def main():
     ]
     times = [0.0, 2.0, 4.0, 6.0, 8.0]
     traj  = QuinticTrajectory(waypoints=wp, times=times)
+
+    # Precompute 80 points along the quintic trajectory for the blue dot path.
+    # Done once here — not every frame — so it doesn't slow the sim loop.
+    # 80 dots gives smooth visual coverage of the 8-second trajectory.
+    path_sample_times = np.linspace(0, 8.0, 80)
+    path_dots = np.array([traj.eval(t)[0] for t in path_sample_times])
 
     dof_ids, act_ids = get_joint_indices(model)
     fig, axes, lines = setup_plots(wp, traj)
@@ -417,7 +412,7 @@ def main():
                 trail.append(x_cur.copy())
 
             # Draw into MuJoCo scene BEFORE viewer.sync()
-            update_mujoco_visuals(viewer.user_scn, wp, x_des, x_cur, trail)
+            update_mujoco_visuals(viewer.user_scn, wp, x_des, x_cur, trail, path_dots)
 
             viewer.sync()
 
